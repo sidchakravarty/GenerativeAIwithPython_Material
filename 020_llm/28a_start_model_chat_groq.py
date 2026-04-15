@@ -1,13 +1,20 @@
 #%% packages
+import os
+from langchain_groq import ChatGroq
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv(usecwd = True))
 
 # %%
 # Model overview: https://console.groq.com/docs/models
-
-
+os.getenv("GROQ_API_KEY")
+MODEL_NAME = "llama-3.3-70b-versatile"
+model = ChatGroq(model=MODEL_NAME, 
+                 temperature=0.7, 
+                 api_key=os.getenv("GROQ_API_KEY"))
 # %% Run the model
-
+res = model.invoke("What is the capital of France?")
 # %% find out what is in the result
-
+res.model_dump()
 # %% only print content
-
+res.content
 # %%
