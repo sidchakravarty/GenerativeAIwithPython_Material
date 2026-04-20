@@ -16,8 +16,10 @@ def encode_image(image_path):
         return base64.b64encode(image_file.read()).decode("utf-8")
 
 # image_path = "rag_workflow.png"
-image_path = "../images/G.jpg"  # Path to your image
-user_question = "How many documents are shown in this image?"
+# 010_course_material\images\G.jpg
+# 010_course_material\04_llm_types_and_variants.md
+image_path = "../010_course_material/images/G.jpg"  # Path to your image
+user_question = "Explain the image to me."
 base64_image = encode_image(image_path)
 # %%
 api_key = os.getenv("GROQ_API_KEY")
