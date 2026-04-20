@@ -98,18 +98,5 @@ LLM Leaderboard: [https://arena.ai/leaderboard](https://https://arena.ai/leaderb
 
 Using Groq playground to change the model parameters.
 
- ![1776271087697.png](./1776271087697.png)
 
- ![1776271145448.png](./1776271145448.png)
-
-### 3.8 Model Selection
-
- ![1776273213888.png](./1776273213888.png)
-
-### Model Capabilities
-
- ![1776273327240.png](./1776273327240.png)
-
- ![1776273498200.png](./1776273498200.png)
-
- ![1776273524991.png](./1776273524991.png)
+ ![1776271024282.png](./1776271024282.png)
