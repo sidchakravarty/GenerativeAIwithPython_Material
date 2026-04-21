@@ -13,12 +13,21 @@ prompt_template = ChatPromptTemplate.from_messages([
 
 #%% model
 model = ChatGroq(
-    model_name="llama3-8b-8192"
+    model_name="llama-3.1-8b-instant",
+    temperature=0.3,
 )
 
 # %% chain 
-
+chain = prompt_template | model | StrOutputParser()
 #%% invoke chain
+user_prompt = "I love programming."
+target_language = "Hindi"
+output = chain.invoke({
+    "input": user_prompt,
+    "target_language": target_language,
+})
 # %% check the output
+pprint(output)
 
 
+# %%
