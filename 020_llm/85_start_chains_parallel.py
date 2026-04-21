@@ -2,15 +2,18 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnableParallel
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv(usecwd=True))
 
 #%% Model Instance
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
 
 #%% Prepare Prompts
 # example: style variations (friendly, polite) vs. (savage, angry)
-system_prompt = "You are a storyteller. You write a short story given a setting and a genre."
+
+system_prompt = "You are a storyteller. You write a short story given a " \
+"setting and a genre."
 
 
 story_prompt = ChatPromptTemplate.from_messages([
@@ -19,15 +22,34 @@ story_prompt = ChatPromptTemplate.from_messages([
 ])
 
 #%% Prepare Chains
+
 story_chain = story_prompt | llm | StrOutputParser()
 
 #%% Prepare Input Variables
-input_variables_1 = {"setting": "A bustling cyberpunk metropolis on a rainy night", 
-                     "genre": "Film Noir/Mystery"}
-input_variables_2 = {"setting": "A serene, ancient forest untouched by time", 
-                     "genre": "Fantasy"}
+
+input_variables_1 = {
+    "setting": "A bustling cyberpunk metropolis on a rainy night", 
+    "genre": "Film Noir/Mystery"
+    }
+input_variables_2 = {
+    "setting": "A serene, ancient forest untouched by time", 
+    "genre": "Fantasy"
+    }
 
 
 # %% Runnable Parallel
 
+map_chain = RunnableParallel(
+    story_punk = lambda x: story_chain.invoke(input_variables_1),
+    story_fantasy = lambda x: story_chain.invoke(input_variables_2),
+)
+
+
 # %% Invoke
+
+results = map_chain.invoke({})
+# %% Print Results
+print("Cyberpunk Story:\n", results["story_punk"])
+print("\nFantasy Story:\n", results["story_fantasy"])
+
+# %%

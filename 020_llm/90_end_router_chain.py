@@ -44,6 +44,11 @@ chains = [chain_cooking, chain_travel, chain_coding]
 chain_embeddings = embeddings.embed_documents(["cooking", "travel", "coding"])
 #%%
 print(len(chain_embeddings))
+print(f"Number of embeddings for each chain: {len(chain_embeddings[0])}")
+
+# The embeddings represent the semantic meaning of the chains, allowing us to
+# calculate similarity between the user query and the chains to route to the 
+# most relevant one.
 
 # %% Prompt Router
 def my_prompt_router(input: str):
